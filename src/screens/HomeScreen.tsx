@@ -19,6 +19,7 @@ export default function HomeScreen() {
   const filteredData = coffeeData.filter(item => item.category === selectedCategory);
 
   useEffect(() => {
+    // Si j'écris "Americano", on cherche la catégorie correspondante
     const query = searchQuery.toLowerCase().trim();
     const foundCategory = categories.find(cat => cat.name.toLowerCase() === query);
     if (foundCategory) {
@@ -43,7 +44,6 @@ export default function HomeScreen() {
       <Header
         userName={user?.nom}
         location={user?.location}
-        notifications={3}
         onPressNotification={() => console.log("Notification clicked")}
         onPressProfile={() => console.log("Profile clicked")}
       />

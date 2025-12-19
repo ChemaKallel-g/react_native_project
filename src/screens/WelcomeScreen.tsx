@@ -5,8 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackNavProp } from '../navigators/types';
 
 export default function WelcomeScreen() {
-  //  const navigation = useNavigation();
-  // const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const navigation = useNavigation<RootStackNavProp<'Welcome'>>();
   return (
     <ImageBackground
@@ -33,7 +31,6 @@ export default function WelcomeScreen() {
         </Text>
 
         <Button title="Get started"
-          //  onPress={() => navigation.navigate('Main')}
           onPress={() => navigation.navigate("Login")} />
 
       </View>
