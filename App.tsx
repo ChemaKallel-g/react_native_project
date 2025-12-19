@@ -9,8 +9,12 @@ import CoffeeDetailsScreen from './src/screens/CoffeeDetailsScreen';
 import LoginScreen from './src/screens/Login';
 import SignupScreen from './src/screens/SignupScreen';
 import { ThemeProvider } from './src/context/ThemeContext';
+import { useEffect } from 'react';
+import BootSplash from 'react-native-bootsplash';
 
 function App() {
+
+  useEffect(() => { BootSplash.hide({ fade: true }); }, [])
   const Stack = createNativeStackNavigator();
 
   return (

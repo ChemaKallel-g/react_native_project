@@ -1,11 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CoffeeItem } from "../components/CoffeeCard";
+import { getCurrentUser } from "./authStorage";
 
-const FAVORITE_KEY = "FAVORITE_COFFEES";
+const FAVORITE_KEY_BASE = "FAVORITE_COFFEES";
+
+const getFavoriteKey = async () => {
+    const user = await getCurrentUser();
+    return user ? `${FAVORITE_KEY_BASE}_${user.email}` : FAVORITE_KEY_BASE;
+};
 
 export const getFavorites = async (): Promise<CoffeeItem[]> => {
     try {
-        const jsonValue = await AsyncStorage.getItem(FAVORITE_KEY);
+        const key = await getFavoriteKey();
+        const jsonValue = await AsyncStorage.getItem(key);
         return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch (e) {
         console.error("Error reading favorites", e);
@@ -18,7 +25,8 @@ export const addFavorite = async (item: CoffeeItem) => {
         const favorites = await getFavorites();
         if (!favorites.find((f) => f.id === item.id)) {
             const updatedFavorites = [...favorites, item];
-            await AsyncStorage.setItem(FAVORITE_KEY, JSON.stringify(updatedFavorites));
+            const key = await getFavoriteKey();
+            await AsyncStorage.setItem(key, JSON.stringify(updatedFavorites));
         }
     } catch (e) {
         console.error("Error adding favorite", e);
@@ -29,7 +37,8 @@ export const removeFavorite = async (itemId: number) => {
     try {
         const favorites = await getFavorites();
         const updatedFavorites = favorites.filter((f) => f.id !== itemId);
-        await AsyncStorage.setItem(FAVORITE_KEY, JSON.stringify(updatedFavorites));
+        const key = await getFavoriteKey();
+        await AsyncStorage.setItem(key, JSON.stringify(updatedFavorites));
     } catch (e) {
         console.error("Error removing favorite", e);
     }

@@ -104,6 +104,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingBottom: 100, // Add padding to avoid overlapping with absolute TabBar
     },
     header: {
         paddingVertical: 40,

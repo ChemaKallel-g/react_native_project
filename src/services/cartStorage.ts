@@ -1,7 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CoffeeItem } from "../components/CoffeeCard";
+import { getCurrentUser } from "./authStorage";
 
-const CART_KEY = "cart";
+const CART_KEY_BASE = "cart";
+
+const getCartKey = async () => {
+    const user = await getCurrentUser();
+    return user ? `${CART_KEY_BASE}_${user.email}` : CART_KEY_BASE;
+};
 
 export interface CartItem extends CoffeeItem {
     quantity: number;
@@ -11,7 +17,8 @@ export interface CartItem extends CoffeeItem {
 
 export const getCart = async (): Promise<CartItem[]> => {
     try {
-        const jsonValue = await AsyncStorage.getItem(CART_KEY);
+        const key = await getCartKey();
+        const jsonValue = await AsyncStorage.getItem(key);
         return jsonValue != null ? JSON.parse(jsonValue) : [];
     } catch (e) {
         console.error("Error reading cart", e);
@@ -35,7 +42,8 @@ export const addToCart = async (item: CoffeeItem, size: string = "Small", sugar:
             cart.push({ ...item, size, sugar, quantity: 1 });
         }
 
-        await AsyncStorage.setItem(CART_KEY, JSON.stringify(cart));
+        const key = await getCartKey();
+        await AsyncStorage.setItem(key, JSON.stringify(cart));
         return cart;
     } catch (e) {
         console.error("Error adding to cart", e);
@@ -49,7 +57,8 @@ export const updateQuantity = async (index: number, delta: number) => {
         if (cart[index]) {
             cart[index].quantity += delta;
             if (cart[index].quantity < 1) cart[index].quantity = 1;
-            await AsyncStorage.setItem(CART_KEY, JSON.stringify(cart));
+            const key = await getCartKey();
+            await AsyncStorage.setItem(key, JSON.stringify(cart));
         }
         return cart;
     } catch (e) {
@@ -62,7 +71,8 @@ export const removeFromCart = async (index: number) => {
     try {
         const cart = await getCart();
         cart.splice(index, 1);
-        await AsyncStorage.setItem(CART_KEY, JSON.stringify(cart));
+        const key = await getCartKey();
+        await AsyncStorage.setItem(key, JSON.stringify(cart));
         return cart;
     } catch (e) {
         console.error("Error removing from cart", e);
@@ -72,7 +82,8 @@ export const removeFromCart = async (index: number) => {
 
 export const clearCart = async () => {
     try {
-        await AsyncStorage.removeItem(CART_KEY);
+        const key = await getCartKey();
+        await AsyncStorage.removeItem(key);
     } catch (e) {
         console.error("Error clearing cart", e);
     }
