@@ -4,7 +4,6 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  TouchableOpacity,
   Image,
   Alert,
 } from "react-native";
@@ -17,9 +16,9 @@ import { getCart, updateQuantity, removeFromCart, clearCart, CartItem } from "..
 import { saveOrder } from "../services/orderStorage";
 import { useTheme } from "../context/ThemeContext";
 
-export default function PaymentScreen({ navigation }: any) {
+export default function PaymentScreen({}: any) {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
 
   const loadCart = async () => {
     const data = await getCart();
@@ -47,10 +46,7 @@ export default function PaymentScreen({ navigation }: any) {
     setCart(updated);
   };
 
-  const handleClear = async () => {
-    await clearCart();
-    setCart([]);
-  };
+  
 
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * (item.quantity || 1),

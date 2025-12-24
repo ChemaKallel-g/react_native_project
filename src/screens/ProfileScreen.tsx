@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
+import React, { useState, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image} from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "../context/ThemeContext";
 import ScreenTemplate from "../templates/ScreenTemplate";

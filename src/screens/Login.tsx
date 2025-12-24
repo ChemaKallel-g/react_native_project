@@ -12,12 +12,12 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackNavProp } from "../navigators/types";
 import Button from "../components/Button";
 import Input from "../components/Input";
-import { getUsers, saveUser } from "../services/authStorage";
+import { getUsers } from "../services/authStorage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const PRIMARY = "#0A7A47";
+
 const TEXT_DARK = "#111827";
-const TEXT_MUTED = "#6B7280";
+
 
 export default function LoginScreen() {
     const navigation = useNavigation<RootStackNavProp<"Login">>();

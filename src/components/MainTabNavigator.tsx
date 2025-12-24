@@ -16,7 +16,7 @@ export default function MainTabNavigator() {
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 headerShown: false,
-                tabBarIcon: ({ color, focused }) => {
+                tabBarIcon: ({ color}) => {
                     let iconSource;
 
                     if (route.name === 'Home') {

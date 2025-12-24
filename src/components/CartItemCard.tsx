@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { useTheme } from "../context/ThemeContext";
+
 
 interface Props {
   image: any;
@@ -24,10 +24,10 @@ export default function CartItemCard({
   price,
   quantity,
   onIncrease,
-  onDecrease,
+  
   onRemove,
 }: Props) {
-  const { colors, isDark } = useTheme();
+ 
 
   return (
     <View style={[styles.cartCard, { backgroundColor: "#FFF" }]}>

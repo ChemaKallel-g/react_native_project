@@ -13,9 +13,8 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { saveUser } from "../services/authStorage";
 
-const PRIMARY = "#0A7A47";
+
 const TEXT_DARK = "#111827";
-const TEXT_MUTED = "#6B7280";
 
 export default function SignupScreen() {
     const navigation = useNavigation<RootStackNavProp<"Signup">>();

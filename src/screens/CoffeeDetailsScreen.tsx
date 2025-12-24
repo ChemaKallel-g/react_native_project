@@ -8,7 +8,6 @@ import {
   StyleSheet,
   ScrollView,
   StatusBar,
-  Alert,
 } from "react-native";
 import { RouteProp, useNavigation, useRoute, useFocusEffect } from "@react-navigation/native";
 import { RootStackParamList } from "../navigators/types";
@@ -21,7 +20,7 @@ type RouteProps = RouteProp<RootStackParamList, "CoffeeDetails">;
 export default function CoffeeDetailsScreen() {
   const { params } = useRoute<RouteProps>();
   const navigation = useNavigation<any>();
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
   const { item } = params;
 
   const [size, setSize] = useState("Medium");
